@@ -1,56 +1,106 @@
-﻿using Avalonia;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using AvaloniaApplication1.Model;
+using AvaloniaApplication3.Model;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace AvaloniaApplication1.Pages;
 
 public partial class WindowExecutionList : Window
 {
+    private List<Employee> EmployeesList { get; set; }
+    private List<Execution> ExecutionsListData { get; set; }
+    private List<Execution> ExecutionsListView { get; set; }
+    private List<Status> StatusList { get; set; }
+    private List<RepairRequest> RepairRequestsList { get; set; }
+
     public WindowExecutionList()
     {
         InitializeComponent();
+        DownloadDataGrid();
+        UpdateComboBox();
+
+    }
+    
+      public void DownloadDataGrid()
+    {
+        ExecutionsListData = DataBaseManager.GetExecutions();
+        UpdateDataGrid();
+    }
+    private void UpdateDataGrid()
+    {
+        ExecutionsListView = ExecutionsListData;
+        
+        if (SearchBox.Text.Length > 0)
+            ExecutionsListView = ExecutionsListView.Where(c => c.RequestID.ToString().ToLower().Contains(SearchBox.Text.ToLower()) ||
+                                                               c.StartDate.Date.ToString().ToLower().Contains(SearchBox.Text.ToLower()) ||
+                                                               c.EndDate.Date.ToString().ToLower().Contains(SearchBox.Text.ToLower()) ||
+                                                               c.ExecutorID.ToString().ToLower().Contains(SearchBox.Text.ToLower()) ||
+                                                               c.StatusID.ToString().ToLower().Contains(SearchBox.Text)).ToList();
+        
+        DataGrid.ItemsSource = ExecutionsListView;
+        
     }
 
-    private void DataGridBtnEdit_OnClick(object? sender, RoutedEventArgs e)
+    private void UpdateComboBox()
     {
-        throw new System.NotImplementedException();
-    }
-
-    private void DataGridBtnRemove_OnClick(object? sender, RoutedEventArgs e)
-    {
-        throw new System.NotImplementedException();
+        StatusList = DataBaseManager.GetStatuse();
+        EmployeesList = DataBaseManager.GetEmployees();
+        RepairRequestsList = DataBaseManager.GetCRepairRequests();
+        
+        CBoxStatus.ItemsSource = StatusList;
+        CBoxEmploye.ItemsSource = EmployeesList;
+        CBoxRqiesrtID.ItemsSource = RepairRequestsList;
     }
 
     private void SearchBox_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        UpdateDataGrid();
     }
 
     private void ResetBtn_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        SearchBox.Text = "";
     }
-
-    private void AddBtn_OnClick(object? sender, RoutedEventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
+    
 
     private void BtnDelet_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        if(DataGrid.SelectedItem == null)
+            return;
+        
+        DataBaseManager.RemoveExecution(DataGrid.SelectedItem as Execution);
+        
+        DownloadDataGrid();
     }
 
     private void BtnRemoveSelect_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        DataGrid.SelectedItem = null;
     }
 
     private void BtnSavet_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        if (CBoxEmploye.SelectedItem == null || CBoxStatus.SelectedItem == null || CBoxRqiesrtID.SelectedItem == null)
+        {
+            MessageBoxManager.GetMessageBoxStandard("Ошибка", "Данные не добавлены", ButtonEnum.Ok).ShowAsync();
+            return;
+        }
+        
+        
+        // if(DataGrid.SelectedItem == null) 
+            //TODO: Добавление с формы
+        //else
+            //TODO: Обновление с формы
+
+            DownloadDataGrid();
     }
+   
 
     private void BtnFinalFixed_OnClick(object? sender, RoutedEventArgs e)
     {

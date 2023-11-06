@@ -1,56 +1,102 @@
-﻿using Avalonia;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using AvaloniaApplication1.Model;
+using AvaloniaApplication3.Model;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace AvaloniaApplication1.Pages;
 
 public partial class WindowRepairRequest : Window
 {
+    private List<RepairRequest> RepairRequestsListData { get; set; }
+    private List<RepairRequest> RepairRequestsListView { get; set; }
+
+    private List<EquipmentType> EquipmentTypesList { get; set; }
     public WindowRepairRequest()
     {
         InitializeComponent();
+        DownloadDataGrid();
+        UpdateComboBox();
     }
 
-    private void DataGridBtnEdit_OnClick(object? sender, RoutedEventArgs e)
+      public void DownloadDataGrid()
     {
-        throw new System.NotImplementedException();
+        RepairRequestsListData = DataBaseManager.GetCRepairRequests();
+
+    }
+    private void UpdateDataGrid()
+    {
+        RepairRequestsListView = RepairRequestsListData;
+        
+        if (SearchBox.Text.Length > 0)
+            RepairRequestsListView = RepairRequestsListView.Where(c => c.CreatedDate.Date.ToString().ToLower().Contains(SearchBox.Text.ToLower()) ||
+                                                                       c.EquipmentTypeID.ToString().ToLower().Contains(SearchBox.Text.ToLower()) ||
+                                                                       c.SerialNumber.ToString().ToLower().Contains(SearchBox.Text.ToLower()) ||
+                                                                       c.ProblemDescription.ToString().ToLower().Contains(SearchBox.Text.ToLower()) ||
+                                                                       c.Priority.ToString().ToLower().Contains(SearchBox.Text)).ToList();
+        
+        DataGrid.ItemsSource = RepairRequestsListView;
+        
     }
 
-    private void DataGridBtnRemove_OnClick(object? sender, RoutedEventArgs e)
+    private void UpdateComboBox()
     {
-        throw new System.NotImplementedException();
+        EquipmentTypesList = DataBaseManager.GetEquipmentTypes();
+        
+        CBoxEquipmentTypeID.ItemsSource = EquipmentTypesList;
     }
 
     private void SearchBox_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        UpdateDataGrid();
     }
 
     private void ResetBtn_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        SearchBox.Text = "";
     }
-
-    private void AddBtn_OnClick(object? sender, RoutedEventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
+    
 
     private void BtnDelet_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        if(DataGrid.SelectedItem == null)
+            return;
+        
+        DataBaseManager.RemoveExecution(DataGrid.SelectedItem as Execution);
+        
+        DownloadDataGrid();
     }
 
     private void BtnRemoveSelect_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        DataGrid.SelectedItem = null;
     }
 
     private void BtnSavet_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        if (DPickerCreatedDate.SelectedDate == null ||
+            CBoxEquipmentTypeID.SelectedItem == null || 
+            TBoxSerialNumber.Text.Length <= 0 ||
+            TBoxProblemDescription.Text.Length <= 0)
+        {
+            MessageBoxManager.GetMessageBoxStandard("Ошибка", "Данные не добавлены", ButtonEnum.Ok).ShowAsync();
+            return;
+        }
+        
+        
+        // if(DataGrid.SelectedItem == null) 
+            //TODO: Добавление с формы
+        //else
+            //TODO: Обновление с формы
+
+            DownloadDataGrid();
     }
+
 
     private void BtnCreateExecution_OnClick(object? sender, RoutedEventArgs e)
     {

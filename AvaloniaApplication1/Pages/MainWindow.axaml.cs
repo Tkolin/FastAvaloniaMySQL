@@ -4,6 +4,8 @@ using Avalonia.Interactivity;
 using AvaloniaApplication1.Model;
 using AvaloniaApplication1.Pages;
 using AvaloniaApplication3.Model;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace AvaloniaApplication1;
 
@@ -23,16 +25,21 @@ public partial class MainWindow : Window
     {
         if (TBoxLogin.Text.Length <= 1 || TBoxPassword.Text.Length <= 1)
         {
-            //TODO: Сообщение
+            MessageBoxManager.GetMessageBoxStandard("Ошибка", "Поля не заполнены",ButtonEnum.Ok).ShowAsync();;
             return;
         }
 
         List<Employee> employees = DataBaseManager.GetEmployees();
-        
-        for(int i = 0; i <= employees.Count; i++)
+        if (employees.Count == 0)
         {
-            if (employees[i].Login.Equals(TBoxLogin.Text) &&
-                employees[i].Password.Equals(TBoxPassword))
+            
+            MessageBoxManager.GetMessageBoxStandard("Ошибка", "В базе нет сотрудников",ButtonEnum.Ok).ShowAsync();;
+            return;
+        }
+        for(int i = 0; i < employees.Count; i++)
+        {
+            if (employees[i].Login == (TBoxLogin.Text) &&
+                employees[i].Password == (TBoxPassword.Text))
             {
                 employeeAuth = employees[i];
                 break;
@@ -41,7 +48,7 @@ public partial class MainWindow : Window
 
         if (employeeAuth == null)
         {
-            //TODO: Сообщение
+            MessageBoxManager.GetMessageBoxStandard("Ошибка", "Данные не верны",ButtonEnum.Ok).ShowAsync();;
             return;
         }
         else

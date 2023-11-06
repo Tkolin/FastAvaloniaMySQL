@@ -47,7 +47,7 @@
                 <TextBlock Text="Поиск:" Margin="0,0,0,10"  HorizontalAlignment="Center"/>
              
                 <TextBox x:Name="SearchBox" 
-                         TextChanged="SearchBox_OnTextChanged" 
+                         TextChanged="SearchBox_OnTextChanged"  Text=""
                          Margin="5"
                          Width="150"/>
                 <Button x:Name="ResetBtn"
@@ -59,7 +59,7 @@
                 <TextBlock Text="Редактирование" Margin="0,0,0,10" HorizontalAlignment="Center"/>
 
                 <TextBlock Text="Дата создания"/>
-               <TextBox x:Name="TBoxCreatedDate"/>
+               <DatePicker x:Name="DPickerCreatedDate"/>
                
                <TextBlock Text="Тип оборудования"/>
                <ComboBox x:Name="CBoxEquipmentTypeID" Width="200"/>

@@ -16,9 +16,9 @@ public static class DataBaseManager
             new MySqlConnectionStringBuilder
             {
                 Server = "localhost",
-                Database = "MDK",
+                Database = "mdk",
                 UserID = "root",
-                Password = "tkl909"//"nrjkby99"
+                Password = "tkl909"// "tkl909"//"nrjkby99"
             };
     // Локальная база данных
 
@@ -64,7 +64,7 @@ public static class DataBaseManager
 
             using (var comand = connection.CreateCommand())
             {
-                comand.CommandText = "SELECT * FROM clients";
+                comand.CommandText = "SELECT * FROM клиент";
 
                 using (var reader = comand.ExecuteReader())
                 {
@@ -220,7 +220,8 @@ public static class DataBaseManager
                                 reader.GetString("Серийный_номер"),
                                 reader.GetString("Описание_проблемы"),
                                 reader.GetDateTime("Дата_создания"),
-                                reader.GetInt32("Приоритет")));
+                                reader.GetInt32("Приоритет"),
+                                reader.GetInt32("ID_клиента")));
                     }
                 }
             }
@@ -269,7 +270,7 @@ public static class DataBaseManager
 
             using (var comand = connection.CreateCommand())
             {
-                comand.CommandText = "SELECT * FROM clients";
+                comand.CommandText = "SELECT * FROM статус";
 
                 using (var reader = comand.ExecuteReader())
                 {
@@ -583,9 +584,7 @@ public static class DataBaseManager
         
             using (var comand = connection.CreateCommand())
             {
-                comand.CommandText = "UPDATE clients " +
-                                     "SET firstname = @fName, lastname = @lName, datebirth = @dateBirth " +
-                                     "WHERE id = @id;";
+
 
                 comand.CommandText = "UPDATE клиенты " +
                                      "SET  @Имя = Имя, @Номер_телефона =  Номер_телефона "+

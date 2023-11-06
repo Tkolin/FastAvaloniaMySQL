@@ -15,13 +15,13 @@
                            GridLinesVisibility="All"
                            BorderThickness="2"
                            Margin="0,20"
-                           x:DataType="models:Execution">
+                           x:DataType="models:ApplicationOfSpecialist">
                  <DataGrid.Columns>
-                     <DataGridTextColumn Width="*"  Header="Номер заявки" Binding="{Binding RequestID}"/>
-                     <DataGridTextColumn Width="*"  Header="Дата начала" Binding="{Binding StartDate}"/>
-                     <DataGridTextColumn Width="*" Header="Дата окончания" Binding="{Binding EndDate}"/>
-                     <DataGridTextColumn Width="*" Header="Специалист" Binding="{Binding ExecutorID}"/>
+                     <DataGridTextColumn Width="*"  Header="Номер" Binding="{Binding ID}"/>
+                     <DataGridTextColumn Width="*"  Header="Содержание" Binding="{Binding Massage}"/>
                      <DataGridTextColumn Width="*" Header="Статус" Binding="{Binding StatusID}"/>
+                     <DataGridTextColumn Width="*" Header="Исполняемая заявка" Binding="{Binding ExecutionID}"/>
+                     
                  </DataGrid.Columns>
              </DataGrid>
         
@@ -42,7 +42,7 @@
                 <TextBlock Text="Поиск:" Margin="0,0,0,10"  HorizontalAlignment="Center"/>
              
                 <TextBox x:Name="SearchBox" 
-                         TextChanged="SearchBox_OnTextChanged" 
+                         TextChanged="SearchBox_OnTextChanged"  Text=""
                          Margin="5"
                          Width="150"/>
                 <Button x:Name="ResetBtn"
@@ -56,7 +56,7 @@
                <TextBlock Text="Номер"/>
                <ComboBox x:Name="TBoxID" Width="200" IsEnabled="False"/>
                 <TextBlock Text="Сообщение"/>
-                <ComboBox x:Name="TBoxMassage" Width="200"/>
+                <TextBox x:Name="TBoxMassage" Width="200"/>
                 
                 
                <TextBlock Text="Статус"/>

@@ -49,7 +49,7 @@
                 <TextBlock Text="Поиск:" Margin="0,0,0,10"  HorizontalAlignment="Center"/>
              
                 <TextBox x:Name="SearchBox" 
-                         TextChanged="SearchBox_OnTextChanged" 
+                         TextChanged="SearchBox_OnTextChanged"  Text=""
                          Margin="5"
                          Width="150"/>
                 <Button x:Name="ResetBtn"
@@ -61,9 +61,9 @@
                 <TextBlock Text="Редактирование" Margin="0,0,0,10" HorizontalAlignment="Center"/>
                
                <TextBlock Text="Номер заявки"/>
-               <ComboBox x:Name="CBoxEquipmentTypeID" Width="200" IsEnabled="False"/>
+               <ComboBox x:Name="CBoxRqiesrtID" Width="200" IsEnabled="False"/>
                 <TextBlock Text="Описание проблеммы"/>
-                <ComboBox x:Name="TBoxDescRepair" Width="200" IsEnabled="False"/>
+                <TextBlock x:Name="TBoxDescRepair" Width="200" IsEnabled="False"/>
                 
                 
                <TextBlock Text="Дата начала работы"/>
@@ -72,10 +72,10 @@
                 <DatePicker x:Name="DPickerDateEnd"/>
                 
                <TextBlock Text="Специалист "/>
-               <TextBox x:Name="СBoxEmployee"/>
+               <ComboBox x:Name="CBoxEmploye"/>
                
                <TextBlock Text="Статус"/>
-               <NumericUpDown x:Name="CBoxStatus"/>
+               <ComboBox x:Name="CBoxStatus"/>
                
                <Button x:Name="BtnSavet" HorizontalAlignment="Center" Margin="5"
                        Click="BtnSavet_OnClick"

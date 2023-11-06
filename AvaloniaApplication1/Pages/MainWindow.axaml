@@ -25,9 +25,9 @@
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
                                     VerticalAlignment="Center" Width="200"  x:Name="PanelEmployee">
                                 <TextBlock>Логин</TextBlock>
-                                <TextBox x:Name="TBoxLogin"/>
+                                <TextBox x:Name="TBoxLogin" Text="admin"/>
                                 <TextBlock>Пароль</TextBlock>
-                                <TextBox x:Name="TBoxPassword"/>
+                                <TextBox x:Name="TBoxPassword" Text="admin"/>
                         </StackPanel>
                         <Button x:Name="BtnAuth" Margin="4" Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center"
                                 Content="Авторизоваться"

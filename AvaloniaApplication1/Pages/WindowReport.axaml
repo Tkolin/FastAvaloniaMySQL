@@ -15,16 +15,17 @@
                            GridLinesVisibility="All"
                            BorderThickness="2"
                            Margin="0,20"
-                           x:DataType="models:Execution">
+                           x:DataType="models:Report">
                  <DataGrid.Columns>
-                     <DataGridTextColumn Width="*"  Header="Номер заявки" Binding="{Binding RequestID}"/>
-                     <DataGridTextColumn Width="*"  Header="Дата начала" Binding="{Binding StartDate}"/>
-                     <DataGridTextColumn Width="*" Header="Дата окончания" Binding="{Binding EndDate}"/>
-                     <DataGridTextColumn Width="*" Header="Специалист" Binding="{Binding ExecutorID}"/>
-                     <DataGridTextColumn Width="*" Header="Статус" Binding="{Binding StatusID}"/>
-                 </DataGrid.Columns>
+                     <DataGridTextColumn Width="*"  Header="Затраченое время (часы)" Binding="{Binding TimeSpent}"/>
+                     <DataGridTextColumn Width="*"  Header="Стоимость работ" Binding="{Binding Costs}"/>
+                     <DataGridTextColumn Width="*" Header="Причина поломки" Binding="{Binding FailureReason}"/>
+                     <DataGridTextColumn Width="*" Header="Помощь оказана" Binding="{Binding AssistanceProvided}"/>
+                     <DataGridTextColumn Width="*" Header="Номер заявки" Binding="{Binding RequestID}"/>
+            </DataGrid.Columns>
              </DataGrid>
-        
+                       
+
         <Grid Grid.Column="1" ShowGridLines="True" ColumnDefinitions="3*,2*" RowDefinitions="1*,2*">
 
             <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment = "Center" Margin="5">
@@ -46,7 +47,7 @@
                 <TextBlock Text="Поиск:" Margin="0,0,0,10"  HorizontalAlignment="Center"/>
              
                 <TextBox x:Name="SearchBox" 
-                         TextChanged="SearchBox_OnTextChanged" 
+                         TextChanged="SearchBox_OnTextChanged" Text="" 
                          Margin="5"
                          Width="150"/>
                 <Button x:Name="ResetBtn"
@@ -65,7 +66,9 @@
                 
                <TextBlock Text="Причина поломки"/>
                <TextBox x:Name="TBoxFailureReason" IsEnabled="False"/>
-                
+                <TextBlock Text="Помощь оказана"/>
+                <TextBox x:Name="TBoxAssistanceProvided"/>
+
                
                <TextBlock Text="Номер заявки"/>
                <ComboBox x:Name="CBoxRequest"/>

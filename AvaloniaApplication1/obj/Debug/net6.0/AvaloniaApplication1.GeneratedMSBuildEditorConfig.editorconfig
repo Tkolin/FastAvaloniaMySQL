@@ -24,6 +24,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/Grigoriy/Desktop/AvaloniaApplication1/AvaloniaApplication1/Pages/WindowAddClient.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/Grigoriy/Desktop/AvaloniaApplication1/AvaloniaApplication1/Pages/WindowAddReport.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/Grigoriy/Desktop/AvaloniaApplication1/AvaloniaApplication1/Pages/WindowApplicationList.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
